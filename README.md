@@ -11,30 +11,35 @@ $ yarn install
 ## Setup database
 
 make docker-compose.yml file with content
-docker-compose.yml
 
-```bash
+```yaml
 version: '3.8'
 services:
-dev-db:
-image: postgres:13
-ports: - 5434:5432
-environment:
-POSTGRES_USER: username
-POSTGRES_PASSWORD: password
-POSTGRES_DB: nest
-networks: - deafable
-test-db:
-image: postgres:13
-ports: - 5435:5432
-environment:
-POSTGRES_USER: username
-POSTGRES_PASSWORD: password
-POSTGRES_DB: nest
-networks: - deafable
+  dev-db:
+    image: postgres:13
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - deafable
+  test-db:
+    image: postgres:13
+    ports:
+      - 5435:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - deafable
 networks:
-deafable:
+  deafable:
 ```
+
+then run
 
 $ yarn run db:dev:restart
 
@@ -57,9 +62,8 @@ $ npm run start:prod
 
 ## Test
 
+test have different port with dev database
 make .env.test file with content
-
-<!-- different port with dev database -->
 
 ```bash
 DATABASE_URL="postgresql://username:password@localhost:5435/nest?schema=public"

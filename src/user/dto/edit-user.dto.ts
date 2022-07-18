@@ -10,9 +10,9 @@ export class EditUserDto {
   // @ApiProperty({
   //   required: false,
   // })
-  // @IsEmail()
-  // @IsOptional()
-  // email?: string;
+  @IsEmail()
+  @IsOptional()
+  email?: string;
 
   @ApiProperty({
     required: false,

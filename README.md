@@ -13,6 +13,7 @@ $ yarn install
 make docker-compose.yml file with content
 docker-compose.yml
 
+```bash
 version: '3.8'
 services:
 dev-db:
@@ -33,6 +34,7 @@ POSTGRES_DB: nest
 networks: - deafable
 networks:
 deafable:
+```
 
 $ yarn run db:dev:restart
 
@@ -40,8 +42,10 @@ $ yarn run db:dev:restart
 
 make .env file with content
 
+```bash
 DATABASE_URL="postgresql://username:password@localhost:5434/nest?schema=public"
 JWT_SECRET='your-secret'
+```
 
 ```bash
 # development
@@ -57,8 +61,10 @@ make .env.test file with content
 
 <!-- different port with dev database -->
 
+```bash
 DATABASE_URL="postgresql://username:password@localhost:5435/nest?schema=public"
 JWT_SECRET='your-secret
+```
 
 ```bash
 # unit tests (no unit test yet)

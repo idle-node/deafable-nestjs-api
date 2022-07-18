@@ -1,6 +1,8 @@
 ## Description
 
 API for deafable project
+Hosted temporary on heroku
+https://deafable-nest-api.herokuapp.com/api
 
 ## Installation
 

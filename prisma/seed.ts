@@ -4,6 +4,13 @@ import { faker } from '@faker-js/faker';
 import * as dotenv from 'dotenv';
 import * as argon from 'argon2';
 
+// KRL route
+// https://www.krl.co.id/jadwalkrl/
+// download as excel, copy row, replace with space
+// replace space with new line using this web https://tools.knowledgewalls.com/onlinereplacespacewithnewlinetool
+// convert formated new line as csv using this web https://www.convertcsv.com/csv-to-json.htm
+import boojakk from './json/boojakk.json';
+
 const prisma = new PrismaClient();
 
 const fakerFirstUser = (): any => ({

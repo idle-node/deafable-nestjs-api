@@ -5,12 +5,16 @@ import {
 } from 'class-validator';
 
 export class CreateStationDto {
-  @ApiProperty()
+  @ApiProperty({
+    example: 'glenmore',
+  })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    example: 'GLM',
+  })
   @IsString()
   @IsNotEmpty()
   code: string;

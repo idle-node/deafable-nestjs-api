@@ -4,6 +4,6 @@ import { TrainController } from './train.controller';
 
 @Module({
   controllers: [TrainController],
-  providers: [TrainService]
+  providers: [TrainService],
 })
 export class TrainModule {}

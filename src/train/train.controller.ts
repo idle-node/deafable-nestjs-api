@@ -11,11 +11,11 @@ import {
 import { TrainService } from './train.service';
 import { CreateTrainDto } from './dto/create-train.dto';
 import { UpdateTrainDto } from './dto/update-train.dto';
-import { JwtGuard } from 'src/auth/guard';
 import {
   ApiBearerAuth,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtGuard } from '../auth/guard';
 
 @ApiTags('train')
 @ApiBearerAuth()

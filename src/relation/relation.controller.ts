@@ -11,11 +11,11 @@ import {
 import { RelationService } from './relation.service';
 import { CreateRelationDto } from './dto/create-relation.dto';
 import { UpdateRelationDto } from './dto/update-relation.dto';
-import { JwtGuard } from 'src/auth/guard';
 import {
   ApiBearerAuth,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtGuard } from '../auth/guard';
 
 @ApiTags('relation')
 @ApiBearerAuth()

@@ -10,7 +10,7 @@ import * as argon from 'argon2';
 // replace space with new line using this web https://tools.knowledgewalls.com/onlinereplacespacewithnewlinetool
 // convert formated new line as csv using this web https://www.convertcsv.com/csv-to-json.htm
 import boojakk from './json/boojakk.json';
-import { PrismaService } from 'src/prisma/prisma.service';
+import rboojakk from './json/routes-boojakk.json';
 
 const prisma = new PrismaClient();
 
@@ -30,36 +30,34 @@ async function main() {
   const fakerRounds = 10;
   dotenv.config();
   console.log('Seeding...');
+
+  // NOTE: Order of seeding is matter
+
   /// --------- Trains --------------
   await prisma.train.deleteMany();
-  for (let i = 0; i < 10; i++) {
-    await prisma.train.create({
-      data: {
-        noka: (4000 + i).toString(),
-      },
-    });
-  }
+  // for (let i = 0; i < 10; i++) {
+  //   await prisma.train.create({
+  //     data: {
+  //       noka: (4000 + i).toString(),
+  //     },
+  //   });
+  // }
+  await prisma.train.create({
+    data: {
+      noka: '4045',
+    },
+  });
+  await prisma.train.create({
+    data: {
+      noka: '4047',
+    },
+  });
+  await prisma.train.create({
+    data: {
+      noka: '4049',
+    },
+  });
 
-  /// --------- TrackSegments -------
-  await prisma.trackSegment.deleteMany();
-  for (let i = 0; i < boojakk.length; i++) {
-    for (let j = 0; j < boojakk.length; j++) {
-      if (i != j && j > i) {
-        // console.log(
-        //   boojakk[i].code +
-        //     ' - ' +
-        //     boojakk[j].code,
-        // );
-
-        await prisma.trackSegment.create({
-          data: {
-            sourceId: boojakk[j].code,
-            destinationId: boojakk[i].code,
-          },
-        });
-      }
-    }
-  }
   /// --------- Stations ------------
   for (let i = 0; i < boojakk.length; i++) {
     const exist = await prisma.station.findFirst({
@@ -77,6 +75,99 @@ async function main() {
       });
     }
   }
+
+  /// --------- TrackSegments -------
+  await prisma.trackSegment.deleteMany();
+  for (let i = 0; i < boojakk.length; i++) {
+    for (let j = 0; j < boojakk.length; j++) {
+      if (i != j && j > i) {
+        // console.log(
+        //   boojakk[i].code +
+        //     ' - ' +
+        //     boojakk[j].code,
+        // );
+
+        await prisma.trackSegment.create({
+          data: {
+            destinationId: boojakk[j].code,
+            sourceId: boojakk[i].code,
+          },
+        });
+      }
+    }
+  }
+
+  /// --------- Relations -----------
+  await prisma.relation.deleteMany();
+  // for (let i = 0; i < rboojakk.length; i++) {
+  for (const [key, value] of Object.entries(
+    rboojakk,
+  )) {
+    // console.log({
+    //   key,
+    //   value,
+    // });
+
+    console.log('-----');
+
+    // const data = Object.keys(value);
+    for (const prop in value) {
+      if (
+        Object.prototype.hasOwnProperty.call(
+          value,
+          prop,
+        )
+      ) {
+        for (let i = 0; i < boojakk.length; i++) {
+          // console.log(prop);
+
+          if (
+            prop == boojakk[i].code &&
+            value[boojakk[i].code] != ''
+          ) {
+            // console.log(
+            // prop + ' - ' + i,
+            // value[boojakk[i].code],
+            // );
+
+            const currentSourceId =
+              await prisma.trackSegment.findFirst(
+                {
+                  where: {
+                    sourceId: prop,
+                  },
+                },
+              );
+
+            if (currentSourceId) {
+              // console.log(
+              //   prop + ' - ' + currentSourceId.id,
+              // );
+
+              await prisma.relation.create({
+                data: {
+                  name: value.name,
+                  time: value[boojakk[i].code],
+                  nokaId: value.noka.toString(),
+                  trackSegmentId:
+                    currentSourceId.id,
+                },
+              });
+            }
+
+            // console.log(value);
+          }
+        }
+      }
+    }
+
+    // await this.prisma.relation.create({
+    //   where: {
+    //     name: value.name,
+    //   },
+    // });
+  }
+  // }
 
   /// --------- Users ---------------
   for (let i = 0; i < fakerRounds; i++) {

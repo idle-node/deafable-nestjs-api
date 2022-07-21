@@ -19,8 +19,14 @@ export class TracksegmentService {
     return tracksegment;
   }
 
-  findAll() {
-    return `This action returns all tracksegment`;
+  async findAll() {
+    const allTrackSegment =
+      await this.prisma.trackSegment.findMany({
+        where: {
+          sourceId: 'BOO',
+        },
+      });
+    return allTrackSegment;
   }
 
   findOne(id: number) {

@@ -45,6 +45,15 @@ then run
 
 $ yarn run db:dev:restart
 
+## Seed database with faker-js
+
+$ yarn run seed
+
+default password after running seeder is 'test12'
+
+see database content with
+$ yarn prisma studio
+
 ## Running the app
 
 make .env file with content

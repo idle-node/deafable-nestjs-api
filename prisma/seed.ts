@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 const fakerFirstUser = (): any => ({
   firstName: 'test',
   lastName: 'user',
-  email: 'test@example.com',
+  email: faker.internet.email(),
 });
 
 const fakerUserWithoutHash = (): any => ({
@@ -30,10 +30,12 @@ async function main() {
         ? fakerFirstUser()
         : fakerUserWithoutHash();
 
+    // make all user have the same password 'test12'
     const hash = await argon.hash(
-      i == 0
-        ? 'test12'
-        : faker.internet.password(),
+      //   i == 0
+      // ?
+      'test12',
+      // : faker.internet.password(),
     );
 
     fakerUser.hash = hash;

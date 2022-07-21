@@ -32,6 +32,12 @@ export class StationsService {
           id,
         },
       });
+
+    if (!station) {
+      return {
+        message: 'station ID does not exist',
+      };
+    }
     return station;
   }
 

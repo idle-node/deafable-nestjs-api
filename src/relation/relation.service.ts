@@ -23,8 +23,31 @@ export class RelationService {
     return `This action returns all relation`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} relation`;
+  async findOne(id: number) {
+    const relation =
+      await this.prisma.relation.findFirst({
+        where: {
+          id,
+        },
+      });
+
+    const detailTrackSegment =
+      this.prisma.trackSegment.findFirst({
+        where: {
+          id: relation.trackSegmentId,
+        },
+      });
+
+    const detailRelation = {
+      ...relation,
+      sourceStationCode: (
+        await detailTrackSegment
+      ).sourceId,
+      destinationStationCode: (
+        await detailTrackSegment
+      ).destinationId,
+    };
+    return detailRelation;
   }
 
   update(

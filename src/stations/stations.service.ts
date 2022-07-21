@@ -1,11 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateStationDto } from './dto/create-station.dto';
 import { UpdateStationDto } from './dto/update-station.dto';
 
 @Injectable()
 export class StationsService {
-  create(createStationDto: CreateStationDto) {
-    return 'This action adds a new station';
+  constructor(private prisma: PrismaService) {}
+
+  async create(
+    createStationDto: CreateStationDto,
+  ) {
+    const station =
+      await this.prisma.station.create({
+        data: {
+          ...createStationDto,
+        },
+      });
+    return station;
   }
 
   findAll() {
@@ -16,7 +27,10 @@ export class StationsService {
     return `This action returns a #${id} station`;
   }
 
-  update(id: number, updateStationDto: UpdateStationDto) {
+  update(
+    id: number,
+    updateStationDto: UpdateStationDto,
+  ) {
     return `This action updates a #${id} station`;
   }
 

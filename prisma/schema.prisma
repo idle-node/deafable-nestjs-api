@@ -47,4 +47,5 @@ model Station {
   updatedAt DateTime @updatedAt
 
   name String
+  code String
 }

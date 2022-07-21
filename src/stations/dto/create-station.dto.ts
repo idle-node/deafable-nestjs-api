@@ -9,4 +9,9 @@ export class CreateStationDto {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code: string;
 }

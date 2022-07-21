@@ -52,6 +52,7 @@ $ yarn run seed
 default password after running seeder is 'test12'
 
 see database content with
+
 $ yarn prisma studio
 
 ## Running the app

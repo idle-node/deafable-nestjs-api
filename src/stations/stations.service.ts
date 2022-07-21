@@ -58,7 +58,12 @@ export class StationsService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} station`;
+  async remove(id: number) {
+    // TODO later, check if user have permission to delete station
+    await this.prisma.station.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

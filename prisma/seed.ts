@@ -10,6 +10,7 @@ import * as argon from 'argon2';
 // replace space with new line using this web https://tools.knowledgewalls.com/onlinereplacespacewithnewlinetool
 // convert formated new line as csv using this web https://www.convertcsv.com/csv-to-json.htm
 import boojakk from './json/boojakk.json';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 const prisma = new PrismaClient();
 
@@ -29,14 +30,42 @@ async function main() {
   const fakerRounds = 10;
   dotenv.config();
   console.log('Seeding...');
+  /// --------- TrackSegments -------
+  await prisma.trackSegment.deleteMany();
+  for (let i = 0; i < boojakk.length; i++) {
+    for (let j = 0; j < boojakk.length; j++) {
+      if (i != j && j > i) {
+        // console.log(
+        //   boojakk[i].code +
+        //     ' - ' +
+        //     boojakk[j].code,
+        // );
+
+        await prisma.trackSegment.create({
+          data: {
+            sourceId: boojakk[j].code,
+            destinationId: boojakk[i].code,
+          },
+        });
+      }
+    }
+  }
   /// --------- Stations ------------
   for (let i = 0; i < boojakk.length; i++) {
-    await prisma.station.create({
-      data: {
-        name: boojakk[i].code,
+    const exist = await prisma.station.findFirst({
+      where: {
         code: boojakk[i].code,
       },
     });
+
+    if (!exist) {
+      await prisma.station.create({
+        data: {
+          name: boojakk[i].code,
+          code: boojakk[i].code,
+        },
+      });
+    }
   }
 
   /// --------- Users ---------------

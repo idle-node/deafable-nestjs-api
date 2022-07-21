@@ -35,11 +35,27 @@ export class StationsService {
     return station;
   }
 
-  update(
+  async update(
     id: number,
     updateStationDto: UpdateStationDto,
   ) {
-    return `This action updates a #${id} station`;
+    const station =
+      await this.prisma.station.findUnique({
+        where: {
+          id,
+        },
+      });
+
+    // TODO later, check if user have permission to update station
+
+    return this.prisma.station.update({
+      where: {
+        id,
+      },
+      data: {
+        ...updateStationDto,
+      },
+    });
   }
 
   remove(id: number) {

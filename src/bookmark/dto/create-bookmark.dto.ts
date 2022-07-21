@@ -6,7 +6,9 @@ import {
 } from 'class-validator';
 
 export class CreateBookmarkDto {
-  @ApiProperty()
+  @ApiProperty({
+    example: 'example bookmark',
+  })
   @IsString()
   @IsNotEmpty()
   title: string;

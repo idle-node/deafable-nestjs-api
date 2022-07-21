@@ -5,6 +5,7 @@ import { BookmarkModule } from './bookmark/bookmark.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { StationsModule } from './stations/stations.module';
+import { TracksegmentModule } from './tracksegment/tracksegment.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StationsModule } from './stations/stations.module';
     BookmarkModule,
     PrismaModule,
     StationsModule,
+    TracksegmentModule,
   ],
 })
 export class AppModule {}

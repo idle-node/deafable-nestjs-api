@@ -6,11 +6,20 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { StationsService } from './stations.service';
 import { CreateStationDto } from './dto/create-station.dto';
 import { UpdateStationDto } from './dto/update-station.dto';
+import {
+  ApiBearerAuth,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtGuard } from 'src/auth/guard';
 
+@ApiTags('stations')
+@ApiBearerAuth()
+@UseGuards(JwtGuard)
 @Controller('stations')
 export class StationsController {
   constructor(

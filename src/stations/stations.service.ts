@@ -25,8 +25,14 @@ export class StationsService {
     return stations;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} station`;
+  async findOne(id: number) {
+    const station =
+      await this.prisma.station.findFirst({
+        where: {
+          id,
+        },
+      });
+    return station;
   }
 
   update(

@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { StationsModule } from './stations/stations.module';
 import { TracksegmentModule } from './tracksegment/tracksegment.module';
+import { TrainModule } from './train/train.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TracksegmentModule } from './tracksegment/tracksegment.module';
     PrismaModule,
     StationsModule,
     TracksegmentModule,
+    TrainModule,
   ],
 })
 export class AppModule {}

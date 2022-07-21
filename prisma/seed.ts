@@ -30,6 +30,16 @@ async function main() {
   const fakerRounds = 10;
   dotenv.config();
   console.log('Seeding...');
+  /// --------- Trains --------------
+  await prisma.train.deleteMany();
+  for (let i = 0; i < 10; i++) {
+    await prisma.train.create({
+      data: {
+        noka: (4000 + i).toString(),
+      },
+    });
+  }
+
   /// --------- TrackSegments -------
   await prisma.trackSegment.deleteMany();
   for (let i = 0; i < boojakk.length; i++) {

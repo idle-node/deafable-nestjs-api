@@ -58,8 +58,12 @@ model TrackSegment {
 
   destinationId String
 
-  sourceId String
-  stationCode   Station @relation(fields: [sourceId], references: [code])
+  sourceId    String
+  stationCode Station @relation(fields: [sourceId], references: [code])
+
+  relation Relation[]
+  // sourceRelation      Relation[] @relation("source")
+  // destinationRelation Relation[] @relation("destination")
 }
 
 model Train {
@@ -67,5 +71,27 @@ model Train {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  noka String
+  noka     String     @unique
+  relation Relation[]
+}
+
+model Relation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  time String
+
+  nokaId String
+  train  Train  @relation(fields: [nokaId], references: [noka])
+
+  trackSegmentId          Int
+  trackSegment TrackSegment @relation(fields: [trackSegmentId], references: [id])
+
+  // sourceId          Int
+  // sourceStationCode TrackSegment @relation(name: "source", fields: [sourceId], references: [id])
+
+  // destinationId          Int
+  // destinationStationCode TrackSegment @relation(name: "destination", fields: [destinationId], references: [id])
 }

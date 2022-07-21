@@ -29,6 +29,16 @@ async function main() {
   const fakerRounds = 10;
   dotenv.config();
   console.log('Seeding...');
+  /// --------- Stations ------------
+  for (let i = 0; i < boojakk.length; i++) {
+    await prisma.station.create({
+      data: {
+        name: boojakk[i].code,
+        code: boojakk[i].code,
+      },
+    });
+  }
+
   /// --------- Users ---------------
   for (let i = 0; i < fakerRounds; i++) {
     // first user always have same value

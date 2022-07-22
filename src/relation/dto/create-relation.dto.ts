@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 
@@ -15,6 +16,11 @@ export class CreateRelationDto {
   @ApiProperty()
   @IsString()
   time: string;
+
+  @IsOptional()
+  @ApiProperty()
+  @IsString()
+  description?: string;
 
   @IsNotEmpty()
   @ApiProperty()

@@ -82,6 +82,7 @@ model Relation {
 
   name String
   time String
+  description String?
 
   nokaId String
   train  Train  @relation(fields: [nokaId], references: [noka], onDelete: Cascade)

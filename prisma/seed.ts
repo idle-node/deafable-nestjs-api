@@ -99,14 +99,13 @@ async function main() {
   await prisma.relation.deleteMany();
   // for (let i = 0; i < rboojakk.length; i++) {
   for (const [key, value] of Object.entries(
-    rboojakk,
+    jsonBooJakk,
+    // rboojakk,
   )) {
     // console.log({
     //   key,
     //   value,
     // });
-
-    console.log('-----');
 
     // const data = Object.keys(value);
     for (const prop in value) {
@@ -117,7 +116,11 @@ async function main() {
         )
       ) {
         for (let i = 0; i < boojakk.length; i++) {
-          // console.log(prop);
+          // if (
+          //   value.hasOwnProperty('KETERANGAN')
+          // ) {
+          //   console.log(value);
+          // }
 
           if (
             prop == boojakk[i].code &&
@@ -149,8 +152,19 @@ async function main() {
                   nokaId: value.noka.toString(),
                   trackSegmentId:
                     currentSourceId.id,
+                  description: value.KETERANGAN,
                 },
               });
+
+              // await prisma.relation.create({
+              //   data: {
+              //     name: value.name,
+              //     time: value[boojakk[i].code],
+              //     nokaId: value.noka.toString(),
+              //     trackSegmentId:
+              //       currentSourceId.id,
+              //   },
+              // });
             }
 
             // console.log(value);

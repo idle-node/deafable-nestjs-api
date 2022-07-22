@@ -22,8 +22,7 @@ export class RelationService {
     return relation;
   }
 
-  // WIP
-  async findAll(
+  async findRoutes(
     sourceStationCode: string,
     destinationStationCode: string,
   ) {
@@ -46,11 +45,22 @@ export class RelationService {
       // countStation - 2 because rboojakk contain noka and name
     }
 
+    console.log('hmm');
+
+    console.log({
+      startStation,
+      countStation,
+    });
+
     for (
       let i = startStation;
       i < countStation + 1;
       i++
     ) {
+      console.log(
+        'total transit should be here ' + i,
+      );
+
       queryTrackSegment.push({
         sourceId: Object.keys(rboojakk[0])[i + 2],
         destinationId: Object.keys(rboojakk[0])[

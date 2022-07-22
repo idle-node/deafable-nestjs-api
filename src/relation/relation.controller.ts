@@ -37,13 +37,13 @@ export class RelationController {
   }
 
   @Get()
-  findAll(
+  findRoutes(
     @Query('sourceStationCode')
     sourceStationCode: string,
     @Query('destinationStationCode')
     destinationStationCode: string,
   ) {
-    return this.relationService.findAll(
+    return this.relationService.findRoutes(
       sourceStationCode,
       destinationStationCode,
     );

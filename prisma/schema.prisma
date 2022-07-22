@@ -56,10 +56,10 @@ model TrackSegment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  destinationId String
-
   sourceId    String
   stationCode Station @relation(fields: [sourceId], references: [code])
+
+  destinationId String
 
   relation Relation[]
   // sourceRelation      Relation[] @relation("source")

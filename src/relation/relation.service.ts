@@ -100,8 +100,16 @@ export class RelationService {
         );
 
         if (trackSegmentTime < time) {
-          // console.log(trackSegmentTime);
-          trackSegment[i].relation.splice(j, 1);
+          // console.log({
+          //   trackSegmentTimeString,
+          //   trackSegmentTime,
+          // });
+
+          // splice didnt work properly
+          // trackSegment[i].relation.splice(j, 1);
+          // delete make the value null, not really remove it, so the index of the array didnt change
+
+          delete trackSegment[i].relation[j];
         }
       }
     }

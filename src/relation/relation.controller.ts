@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { RelationService } from './relation.service';
 import { CreateRelationDto } from './dto/create-relation.dto';
@@ -36,8 +37,16 @@ export class RelationController {
   }
 
   @Get()
-  findAll() {
-    return this.relationService.findAll();
+  findAll(
+    @Query('sourceStationCode')
+    sourceStationCode: string,
+    @Query('destinationStationCode')
+    destinationStationCode: string,
+  ) {
+    return this.relationService.findAll(
+      sourceStationCode,
+      destinationStationCode,
+    );
   }
 
   @Get(':id')

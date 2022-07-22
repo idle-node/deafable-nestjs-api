@@ -1,0 +1,11 @@
+BOO	-> CLT
+2	-> 3
+source  = boo 
+dest 	= ctl
+for (1x) 3-2
+log transit
+
+BOO	-> BJD
+2	-> 4
+for (2x) 4-2
+log transit2

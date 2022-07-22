@@ -13,7 +13,6 @@ import boojakk from './json/boojakk.json';
 import rboojakk from './json/routes-boojakk.json';
 
 import XLSX from 'xlsx';
-import { json } from 'stream/consumers';
 const workbook = XLSX.readFile(
   '/home/mars/Projects/deafable/deafable-nest/prisma/fkrlTgl13Juli2022.xlsx',
   // '/home/mars/Projects/deafable/deafable-nest/prisma/example.xlsx',
@@ -148,7 +147,9 @@ async function main() {
               await prisma.relation.create({
                 data: {
                   name: value.name,
-                  time: value[boojakk[i].code],
+                  time: value[
+                    boojakk[i].code
+                  ].toString(),
                   nokaId: value.noka.toString(),
                   trackSegmentId:
                     currentSourceId.id,

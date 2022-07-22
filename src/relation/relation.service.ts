@@ -25,6 +25,7 @@ export class RelationService {
   async findRoutes(
     sourceStationCode: string,
     destinationStationCode: string,
+    time?: number,
   ) {
     let countStation = 0;
     let startStation = 0;
@@ -45,21 +46,19 @@ export class RelationService {
       // countStation - 2 because rboojakk contain noka and name
     }
 
-    console.log('hmm');
-
-    console.log({
-      startStation,
-      countStation,
-    });
+    // console.log({
+    //   startStation,
+    //   countStation,
+    // });
 
     for (
       let i = startStation;
       i < countStation + 1;
       i++
     ) {
-      console.log(
-        'total transit should be here ' + i,
-      );
+      // console.log(
+      //   'total transit should be here ' + i,
+      // );
 
       queryTrackSegment.push({
         sourceId: Object.keys(rboojakk[0])[i + 2],
@@ -79,25 +78,53 @@ export class RelationService {
         },
       });
 
+    // only show trackSegment on specific time
     for (
       let i = 0;
       i < trackSegment.length;
       i++
     ) {
-      queryRelation.push({
-        trackSegmentId: trackSegment[i].id,
-      });
+      for (
+        let j = 0;
+        j < trackSegment[i].relation.length;
+        j++
+      ) {
+        const trackSegmentTimeString = parseFloat(
+          trackSegment[i].relation[j].time
+            .replace(',', '.')
+            .replace(' ', ''),
+        );
+
+        const trackSegmentTime = Number(
+          trackSegmentTimeString,
+        );
+
+        if (trackSegmentTime < time) {
+          // console.log(trackSegmentTime);
+          trackSegment[i].relation.splice(j, 1);
+        }
+      }
     }
 
-    const relations =
-      await this.prisma.relation.findMany({
-        where: {
-          OR: queryRelation,
-        },
-        include: {
-          trackSegment: true,
-        },
-      });
+    // for (
+    //   let i = 0;
+    //   i < trackSegment.length;
+    //   i++
+    // ) {
+    //   queryRelation.push({
+    //     trackSegmentId: trackSegment[i].id,
+    //   });
+    // }
+
+    // const relations =
+    //   await this.prisma.relation.findMany({
+    //     where: {
+    //       OR: queryRelation,
+    //     },
+    //     include: {
+    //       trackSegment: true,
+    //     },
+    //   });
     return trackSegment;
   }
 

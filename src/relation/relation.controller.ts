@@ -14,6 +14,7 @@ import { CreateRelationDto } from './dto/create-relation.dto';
 import { UpdateRelationDto } from './dto/update-relation.dto';
 import {
   ApiBearerAuth,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/guard';
@@ -37,15 +38,22 @@ export class RelationController {
   }
 
   @Get()
+  @ApiQuery({
+    name: 'time',
+    required: false,
+    type: Number,
+  })
   findRoutes(
     @Query('sourceStationCode')
     sourceStationCode: string,
     @Query('destinationStationCode')
     destinationStationCode: string,
+    @Query('time') time?: number,
   ) {
     return this.relationService.findRoutes(
       sourceStationCode,
       destinationStationCode,
+      time,
     );
   }
 

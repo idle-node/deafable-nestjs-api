@@ -12,6 +12,18 @@ import * as argon from 'argon2';
 import boojakk from './json/boojakk.json';
 import rboojakk from './json/routes-boojakk.json';
 
+import XLSX from 'xlsx';
+import { json } from 'stream/consumers';
+const workbook = XLSX.readFile(
+  '/home/mars/Projects/deafable/deafable-nest/prisma/fkrlTgl13Juli2022.xlsx',
+  // '/home/mars/Projects/deafable/deafable-nest/prisma/example.xlsx',
+);
+
+const sheet =
+  workbook.Sheets[workbook.SheetNames[0]];
+const jsonBooJakk: Array<any> =
+  XLSX.utils.sheet_to_json(sheet);
+
 const prisma = new PrismaClient();
 
 const fakerFirstUser = (): any => ({
@@ -35,28 +47,14 @@ async function main() {
 
   /// --------- Trains --------------
   await prisma.train.deleteMany();
-  // for (let i = 0; i < 10; i++) {
-  //   await prisma.train.create({
-  //     data: {
-  //       noka: (4000 + i).toString(),
-  //     },
-  //   });
-  // }
-  await prisma.train.create({
-    data: {
-      noka: '4045',
-    },
-  });
-  await prisma.train.create({
-    data: {
-      noka: '4047',
-    },
-  });
-  await prisma.train.create({
-    data: {
-      noka: '4049',
-    },
-  });
+  // console.log('jbj length ' + jsonBooJakk.length);
+  for (let i = 0; i < jsonBooJakk.length; i++) {
+    await prisma.train.create({
+      data: {
+        noka: jsonBooJakk[i].noka.toString(),
+      },
+    });
+  }
 
   /// --------- Stations ------------
   for (let i = 0; i < boojakk.length; i++) {

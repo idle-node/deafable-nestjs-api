@@ -84,7 +84,7 @@ model Relation {
   time String
 
   nokaId String
-  train  Train  @relation(fields: [nokaId], references: [noka])
+  train  Train  @relation(fields: [nokaId], references: [noka], onDelete: Cascade)
 
   trackSegmentId          Int
   trackSegment TrackSegment @relation(fields: [trackSegmentId], references: [id])

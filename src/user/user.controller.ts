@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Patch,
+  Post,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -12,7 +13,10 @@ import {
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
-import { EditUserDto } from './dto';
+import {
+  EditUserDto,
+  ResetPasswordDto,
+} from './dto';
 import { UserService } from './user.service';
 
 @ApiTags('users')
@@ -33,5 +37,17 @@ export class UserController {
     @Body() dto: EditUserDto,
   ) {
     return this.userService.editUser(userId, dto);
+  }
+
+  // TODO, confuse how to make this and forget password
+  @Post('resetpassword')
+  resetpassword(
+    @GetUser('id') userId: number,
+    @Body() dto: ResetPasswordDto,
+  ) {
+    return this.userService.resetPassword(
+      userId,
+      dto,
+    );
   }
 }

@@ -17,7 +17,6 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { GetUser } from '../auth/decorator';
 import { JwtGuard } from '../auth/guard';
 import { BookmarkService } from './bookmark.service';
 import { CreateBookmarkDto } from './dto';

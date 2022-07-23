@@ -13,6 +13,7 @@ import {
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/get-user.decorator';
 import { JwtGuard } from 'src/auth/guard';
+import { AuthService } from '../auth/auth.service';
 import {
   EditUserDto,
   ResetPasswordDto,
